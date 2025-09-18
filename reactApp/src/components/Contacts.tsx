@@ -16,7 +16,8 @@ export default function Contacts () {
         email:"",
         phone:""
     })
-    const [contacts , setContacts] = useState<Array<contact>>([])
+    const [contacts , setContacts] = useState<Array<contact>>([]);
+    const [alert , setAlert] = useState<string>("");
 
     const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name , value } = event.target
@@ -24,6 +25,13 @@ export default function Contacts () {
     }
 
     const addHandler = () => {
+
+    if (contact.name.trim() === "" || contact.email.trim() === "" || contact.lastName.trim() === "" || contact.phone.trim() === "") {
+        setAlert("Please fill in all fields");
+        return;
+    }
+    setAlert("")
+
         setContacts((contacts) => [...contacts, contact]);
         console.log(contacts);
         setContact({
@@ -42,6 +50,9 @@ export default function Contacts () {
             <input type='text' name='email' placeholder='Email' value={contact.email} onChange={changeHandler} />
             <input type='text' name='phone' placeholder='Phone' value={contact.phone} onChange={changeHandler}/>
             <button onClick={addHandler}>Add Contact</button>
+
+            <div>{alert && <p>{alert}</p>}</div>
+
             <ContactList contacts={contacts} />
         </div>      
     </div>
