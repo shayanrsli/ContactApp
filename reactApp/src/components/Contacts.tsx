@@ -8,6 +8,13 @@ type contact = {
     phone: string
 }
 
+const inputs = [
+    {type : 'text'  , name: "name" , placeholder : 'name'},
+    {type : 'text'  , name: "lastName" , placeholder : 'lastName'},
+    {type : 'email'  , name: "email" , placeholder : 'email'},
+    {type : 'number'  , name: "phone" , placeholder : 'phone'},
+]
+
 export default function Contacts () {
 
     const [contact , setContact] = useState<contact>({
@@ -45,10 +52,10 @@ export default function Contacts () {
   return (
     <div>
         <div>
-            <input type='text' name='name' placeholder='name'  value={contact.name} onChange={changeHandler}/>
-            <input type='text' name='lastName' placeholder='Last Name' value={contact.lastName}  onChange={changeHandler}/>
-            <input type='text' name='email' placeholder='Email' value={contact.email} onChange={changeHandler} />
-            <input type='text' name='phone' placeholder='Phone' value={contact.phone} onChange={changeHandler}/>
+            {inputs.map((input , index) => (
+                <input key={index} type={input.type} placeholder={input.placeholder} name={input.name} onChange={changeHandler} value={contact[input.name as keyof contact]} />
+            ))}
+
             <button onClick={addHandler}>Add Contact</button>
 
             <div>{alert && <p>{alert}</p>}</div>
