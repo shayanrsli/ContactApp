@@ -1,7 +1,7 @@
-import styles from "../components/Contacts.module.css"
+import styles from "../components/Contacts.module.css";
+import ContactItem from "./ContactItem";
 
-
-type Contact = {
+export type Contact = {
   name: string;
   lastName: string;
   email: string;
@@ -16,18 +16,10 @@ export default function ContactList({ contacts }: ContactListProps) {
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Contacts List</h2>
-
       {contacts.length ? (
         <ul className={styles.list}>
-          {contacts.map((c, index) => (
-            <li key={index} className={styles.item}>
-              <span>
-                {c.name} {c.lastName}
-              </span>
-              <span>
-                {c.email} | {c.phone}
-              </span>
-            </li>
+          {contacts.map((contact, index) => (
+            <ContactItem key={index} contact={contact} index={index} />
           ))}
         </ul>
       ) : (
