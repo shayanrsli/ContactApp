@@ -1,25 +1,25 @@
-import styles from "../components/Contacts.module.css";
 import ContactItem from "./ContactItem";
-
-export type Contact = {
-  name: string;
-  lastName: string;
-  email: string;
-  phone: string;
-};
+import styles from "./Contacts.module.css";
+import type { Contact } from "./Contacts";
+import type { Dispatch, SetStateAction } from "react";
 
 type ContactListProps = {
   contacts: Contact[];
+  setContacts: Dispatch<SetStateAction<Contact[]>>;
 };
 
-export default function ContactList({ contacts }: ContactListProps) {
+export default function ContactList({ contacts, setContacts }: ContactListProps) {
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Contacts List</h2>
       {contacts.length ? (
         <ul className={styles.list}>
-          {contacts.map((contact, index) => (
-            <ContactItem key={index} contact={contact} index={index} />
+          {contacts.map((contact) => (
+            <ContactItem
+              key={contact.id}
+              contact={contact}
+              setContacts={setContacts}
+            />
           ))}
         </ul>
       ) : (

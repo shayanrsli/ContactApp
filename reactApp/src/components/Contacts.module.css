@@ -103,3 +103,22 @@
   text-align: center;
 }
 
+.deleteBtn {
+  background: #dc3545;   /* قرمز اصلی */
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.deleteBtn:hover {
+  background: #b02a37;   /* قرمز تیره‌تر */
+  transform: scale(1.05); /* افکت کوچک زوم */
+}
+
+.deleteBtn:active {
+  transform: scale(0.95); /* وقتی کلیک شد کمی جمع بشه */
+}

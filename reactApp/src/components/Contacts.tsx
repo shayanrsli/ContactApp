@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import ContactList from "./ContactsList";
-import styles from "./Contacts.module.css";
+import styles from "../components/Contacts.module.css";
 
-type Contact = {
+export type Contact = {
+  id: number;
   name: string;
   lastName: string;
   email: string;
@@ -17,7 +18,7 @@ const inputs = [
 ];
 
 export default function Contacts() {
-  const [contact, setContact] = useState<Contact>({
+  const [contact, setContact] = useState<Omit<Contact, "id">>({
     name: "",
     lastName: "",
     email: "",
@@ -43,7 +44,11 @@ export default function Contacts() {
     }
     setAlert("");
 
-    setContacts((contacts) => [...contacts, contact]);
+    setContacts((prev) => [
+      ...prev,
+      { ...contact, id: Date.now() }, // 👈 اضافه کردن id
+    ]);
+
     setContact({
       name: "",
       lastName: "",
@@ -62,7 +67,7 @@ export default function Contacts() {
             placeholder={input.placeholder}
             name={input.name}
             onChange={changeHandler}
-            value={contact[input.name as keyof Contact]}
+            value={contact[input.name as keyof typeof contact]}
             className={styles.input}
           />
         ))}
@@ -73,7 +78,7 @@ export default function Contacts() {
 
         {alert && <p className={styles.alert}>{alert}</p>}
 
-        <ContactList contacts={contacts} />
+        <ContactList contacts={contacts} setContacts={setContacts} />
       </div>
     </div>
   );
